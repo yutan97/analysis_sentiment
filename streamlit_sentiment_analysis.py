@@ -242,7 +242,7 @@ elif choice == 'Dự đoán':
         if uploaded_file is not None:
             lines = pd.read_csv(uploaded_file)
             lines = text_process(lines['comment'])
-            x_new = count_model.transform(lines.comment)        
+            x_new = count_model.transform(lines)        
             y_pred_new = sentiment_model.predict(x_new)
             lines['prediction'] = y_pred_new
             st.write("Prediction:")
