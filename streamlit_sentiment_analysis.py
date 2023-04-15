@@ -233,10 +233,10 @@ elif choice == 'Dự đoán':
             x_new = count_model.transform(lines)        
             y_pred_new = sentiment_model.predict(x_new)
             lines['prediction'] = y_pred_new
-	    for i in len(lines):
+	for i in len(lines):
 		st.write("Kết quả phân tích:")
 		st.wirte("Comment" + str(lines['comment'][i]) + ", kết quả phân tích là:" + str(y_pred_new[0]))
-            st.dataframe(lines)
+            #st.dataframe(lines)
     if type=="Nhập nội dung mới":
         with st.form(key='my_form'):
 	        review = st.text_input(label='Nhập nội dung cần phân tích:')
