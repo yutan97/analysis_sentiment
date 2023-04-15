@@ -229,7 +229,7 @@ elif choice == 'Dự đoán':
 			lines = text_process(lines['comment'])
 			x_new = count_model.transform(lines)
 			y_pred_new = sentiment_model.predict(x_new)
-			lines['prediction'] = y_pred_new.tolist()
+			lines['prediction'] = y_pred_new.toarray().tolist()
 			st.write("Kết quả phân tích:")
 			st.dataframe(lines)
 	if type=="Nhập nội dung mới":
