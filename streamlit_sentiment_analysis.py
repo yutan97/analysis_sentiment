@@ -265,18 +265,18 @@ elif choice == 'Dự đoán':
                 """)
                 neg = Image.open("negative.jpg")
                 neg = neg.resize((400,400))
-                st.image(neg, width = 100)
+                st.image(neg, width = 250)
             elif y_pred_new == "neutral":
                 st.write("""
                 Khách hàng có cảm nhận bình thường về sản phẩm này.
                 """)
                 neu = Image.open("neutral.png")
                 neu = neu.resize((400,400))
-                st.image(neu, width = 100)
+                st.image(neu, width = 250)
             elif y_pred_new == "positive":
                 st.write("""
                 Chúc mừng bạn, bạn có một phản hồi tốt về sản phẩm này.
                 """)
                 pos = Image.open("positive.jpg")
                 pos = pos.resize((400,400))
-                st.image(pos, width = 100)
+                st.image(pos, width = 250)
