@@ -245,7 +245,7 @@ elif choice == 'Dự đoán':
             x_new = count_model.transform(lines)        
             y_pred_new = sentiment_model.predict(x_new)
             lines['prediction'] = y_pred_new
-	    st.write(type(lines)
+	    st.write(type(lines))
             st.write("Kết quả phân tích:")
             st.dataframe(lines)
     if type=="Nhập nội dung mới":
