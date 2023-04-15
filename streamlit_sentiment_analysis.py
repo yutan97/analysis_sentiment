@@ -251,7 +251,7 @@ elif choice == 'Dự đoán':
         review = st.text_area(label="Nhập nội dung cần phân tích:")
         if review!="":
             lines = pd.DataFrame({'comment':[review]})
-            lines.comment = lines.comment.apply(text_process)
+            lines = text_process(lines['comment'])
             x_new = count_model.transform(lines)
             y_pred_new = sentiment_model.predict(x_new)
             if y_pred_new == "negative":
