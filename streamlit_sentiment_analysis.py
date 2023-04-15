@@ -228,7 +228,7 @@ elif choice == 'Dự đoán':
 			lines = pd.read_csv(uploaded_file)
 			lines = text_process(lines['comment'])
 			result = []
-			for i in lines.iloc[:, 0]:
+			for i in lines['comment'].tolist():
 				x_new = count_model.transform(i)
 				y_pred_new = sentiment_model.predict(x_new)
 				result.append(y_pred_new)
