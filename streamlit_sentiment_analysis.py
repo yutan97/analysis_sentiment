@@ -249,7 +249,7 @@ elif choice == 'Dự đoán':
             st.dataframe(lines[[0,'prediction']])
     if type=="Nhập nội dung mới":
         with st.form(key='my_form'):
-	        text_input = st.text_input(label='Nhập nội dung cần phân tích:')
+	        review = st.text_input(label='Nhập nội dung cần phân tích:')
 	        submit_button = st.form_submit_button(label='Phân tích')
             #form = st.form(key='my_form')
             #review = st.text_area(label="Nhập nội dung cần phân tích:")
