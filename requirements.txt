@@ -9,3 +9,4 @@ regex
 demoji
 pyvi
 swifter
+Pillow
