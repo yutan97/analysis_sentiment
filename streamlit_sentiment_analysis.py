@@ -12,7 +12,7 @@ from pyvi import ViPosTagger, ViTokenizer
 import string
 import re
 import swifter
-from PLT import Image
+from PIL import Image
 
 # Chuẩn hóa unicode tiếng việt
 def loaddicchar():
