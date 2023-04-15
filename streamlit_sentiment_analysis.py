@@ -227,11 +227,14 @@ elif choice == 'Dự đoán':
 		if uploaded_file is not None:
 			lines = pd.read_csv(uploaded_file)
 			lines = text_process(lines['comment'])
-			x_new = count_model.transform(lines)
-			y_pred_new = sentiment_model.predict(x_new)
-			lines['prediction'] = y_pred_new
+			result = []
+			for i in lines['comment']:
+				x_new = count_model.transform(i)
+				y_pred_new = sentiment_model.predict(x_new)
+				result.append(y_pred_new)
+			lines['prediction'] = result
 			st.write("Kết quả phân tích:")
-			st.dataframe(lines['prediction'])
+			st.dataframe(lines[['comment', 'prediction']])
 	if type=="Nhập nội dung mới":
 		with st.form(key='my_form'):
 			review = st.text_input(label='Nhập nội dung cần phân tích:')
