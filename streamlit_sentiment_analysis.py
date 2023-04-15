@@ -270,5 +270,5 @@ elif choice == 'Dự đoán':
                 st.write("""
                 Chúc mừng bạn, bạn có một phản hồi tốt về sản phẩm này.
                 """)
-                pos = Image.open("positvie.jpg")
+                pos = Image.open("positive.jpg")
                 pos = pos.resize((400,400))
