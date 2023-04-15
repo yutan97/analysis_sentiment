@@ -241,14 +241,19 @@ elif choice == 'Dự đoán':
         uploaded_file = st.file_uploader("Chọn tệp", type=['csv'])
         if uploaded_file is not None:
             lines = pd.read_csv(uploaded_file)
-            lines.comment = lines.comment.apply(text_process)
+            lines = text_process(lines['comment'])
             x_new = count_model.transform(lines.comment)        
             y_pred_new = sentiment_model.predict(x_new)
             lines['prediction'] = y_pred_new
             st.write("Prediction:")
             st.dataframe(lines[[0,'prediction']])
     if type=="Nhập nội dung mới":
-        review = st.text_area(label="Nhập nội dung cần phân tích:")
+        with st.form(key='my_form'):
+	        text_input = st.text_input(label='Nhập nội dung cần phân tích:')
+	        submit_button = st.form_submit_button(label='Phân tích')
+            #form = st.form(key='my_form')
+            #review = st.text_area(label="Nhập nội dung cần phân tích:")
+            #submit_button = st.form_submit_button(label='Phân tích')
         if review!="":
             lines = pd.DataFrame({'comment':[review]})
             lines = text_process(lines['comment'])
@@ -260,15 +265,18 @@ elif choice == 'Dự đoán':
                 """)
                 neg = Image.open("negative.jpg")
                 neg = neg.resize((400,400))
+                st.image(neg, width = 100)
             elif y_pred_new == "neutral":
                 st.write("""
                 Khách hàng có cảm nhận bình thường về sản phẩm này.
                 """)
                 neu = Image.open("neutral.png")
                 neu = neu.resize((400,400))
+                st.image(neu, width = 100)
             elif y_pred_new == "positive":
                 st.write("""
                 Chúc mừng bạn, bạn có một phản hồi tốt về sản phẩm này.
                 """)
                 pos = Image.open("positive.jpg")
                 pos = pos.resize((400,400))
+                st.image(pos, width = 100)
