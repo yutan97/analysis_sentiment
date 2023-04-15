@@ -9,4 +9,3 @@ regex
 demoji
 pyvi
 swifter
-PLT
