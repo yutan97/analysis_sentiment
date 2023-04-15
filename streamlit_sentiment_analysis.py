@@ -227,23 +227,19 @@ elif choice == 'Dự đoán':
     if type=="Tải lên tệp *.csv":
         # Upload file
         uploaded_file = st.file_uploader("Chọn tệp", type=['csv'])
-        if uploaded_file is not None:
-            lines = pd.read_csv(uploaded_file)
-            lines = text_process(lines['comment'])
-            x_new = count_model.transform(lines)        
-            y_pred_new = sentiment_model.predict(x_new)
-            lines['prediction'] = y_pred_new
-	for i in len(lines):
+	if uploaded_file is not None:
+		lines = pd.read_csv(uploaded_file)
+		lines = text_process(lines['comment'])
+		x_new = count_model.transform(lines)
+		y_pred_new = sentiment_model.predict(x_new)
+		lines['prediction'] = y_pred_new
 		st.write("Kết quả phân tích:")
-		st.wirte("Comment" + str(lines['comment'][i]) + ", kết quả phân tích là:" + str(y_pred_new[0]))
-            #st.dataframe(lines)
+		st.dataframe(lines['comment'])
+		st.dataframe(lines['prediction'])
     if type=="Nhập nội dung mới":
         with st.form(key='my_form'):
 	        review = st.text_input(label='Nhập nội dung cần phân tích:')
 	        submit_button = st.form_submit_button(label='Phân tích')
-            #form = st.form(key='my_form')
-            #review = st.text_area(label="Nhập nội dung cần phân tích:")
-            #submit_button = st.form_submit_button(label='Phân tích')
         if review!="":
             lines = pd.DataFrame({'comment':[review]})
             lines = text_process(lines['comment'])
