@@ -75,7 +75,7 @@ def text_process(data):
   pattern = r'(?i)\b[a-záàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệóòỏõọôốồổỗộơớờởỡợíìỉĩịúùủũụưứừửữựýỳỷỹỵđ]+\b'
   lst_word_type = ['A','AB','V','VB','VY','R','N','M','C']
   ##LOAD EMOJICON
-  file = open('files/emojicon.txt', 'r', encoding="utf8")
+  file = open('Data/files/emojicon.txt', 'r', encoding="utf8")
   emoji_lst = file.read().split('\n')
   emoji_dict = {}
   for line in emoji_lst:
@@ -84,7 +84,7 @@ def text_process(data):
   file.close()
   #################
   #LOAD TEENCODE
-  file = open('files/teencode.txt', 'r', encoding="utf8")
+  file = open('Data/files/teencode.txt', 'r', encoding="utf8")
   teen_lst = file.read().split('\n')
   teen_dict = {}
   for line in teen_lst:
@@ -93,7 +93,7 @@ def text_process(data):
   file.close()
   ###############
   #LOAD TRANSLATE ENGLISH -> VNMESE
-  file = open('files/english-vnmese.txt', 'r', encoding="utf8")
+  file = open('Data/files/english-vnmese.txt', 'r', encoding="utf8")
   english_lst = file.read().split('\n')
   english_dict = {}
   for line in english_lst:
@@ -102,7 +102,7 @@ def text_process(data):
   file.close()
   ################
   #LOAD wrong words
-  file = open('files/wrong-word.txt', 'r', encoding="utf8")
+  file = open('Data/files/wrong-word.txt', 'r', encoding="utf8")
   wrong_lst = file.read().split('\n')
   dict_wrong_lst = {}
   for line in wrong_lst:
@@ -116,7 +116,7 @@ def text_process(data):
   file.close()
   #################
   #LOAD STOPWORDS
-  file = open('files/vietnamese-stopwords.txt', 'r', encoding="utf8")
+  file = open('Data/files/vietnamese-stopwords.txt', 'r', encoding="utf8")
   stopwords_lst = file.read().split('\n')
   file.close()
 
@@ -214,6 +214,7 @@ with open('TFIDF.sav', 'rb') as file:
 menu = ["Giới thiệu", "Dự đoán"]
 choice = st.sidebar.selectbox('Menu', menu)
 if choice == 'Giới thiệu':
+    st.image("sentiment_analysis.jpg")
     st.markdown('<div style="text-align: justify;">Thu thập thông tin phản hồi của khách hàng là một cách tuyệt vời giúp cho các doanh nghiệp hiểu được điểm mạnh, điểm yếu trong sản phẩm, dịch vụ của mình; đồng thời nhanh chóng nắm bắt được tâm ký và nhu cầu khách hàng để mang đến cho họ sản phẩm, dịch vụ hoàn hảo nhất.</div>', unsafe_allow_html=True)
     st.markdown('<div style="text-align: justify;">Ngày nay, với sự phát triển vượt bậc của khoa học và công nghệ, đặc biệt là sự bùng nổ của Internet với các phương tiện truyền thông xã hội, thương mại điện tử,... đã cho phép mọi người không chỉ chia sẻ thông tin trên đó mà còn thể hiện thái độ, quan điểm của mình đối với các sản phẩm, dịch vụ và các vấn đề xã hội khác. Vì vậy mà Internet đã trở lên vô cùng quan trọng và là nguồn cung cấp một lượng thông tin vô cùng lớn và quan trọng.</div>', unsafe_allow_html=True)
     st.markdown('<div style="text-align: justify;">Thông qua những dữ liệu được thu thập từ Shopee, các nhà cung cấp dịch vụ cũng có thể sử dụng những nguồn thông tin này để đánh giá về sản phẩm của mình, từ đó có thể đưa ra những cải tiến phù hợp hơn với người dùng, mang lại lợi nhuận cao hơn, tránh các rủi ro đáng tiếc xảy ra. Đặc biệt, khi 1 doanh nghiệp có 1 sản phẩm mới ra mắt thị trường thì việc lấy ý kiến phản hồi là vô cùng cần thiết.</div>', unsafe_allow_html=True)
