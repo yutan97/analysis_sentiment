@@ -257,7 +257,7 @@ elif choice == 'Dự đoán':
 				list_result.append(y_predict[0])
 			df['sentiment'] = list_result
 			df_after_predict = df.copy()
-			y_class = {0: "Tiêu cực", 1: "Trung tính", 2: "Tích cực"}
+			y_class = {"negative": "Tiêu cực", "neutral": "Trung tính", "positive": "Tích cực"}
 			df_after_predict['sentiment']  = [y_class[i] for i in df_after_predict.sentiment]
 			st.subheader("Result & Statistics :")
 			st.write("5 bình luận đầu tiên: ")
