@@ -248,16 +248,33 @@ elif choice == 'Dự đoán':
 		uploaded_file = st.file_uploader("Chọn tệp")
 		if uploaded_file is not None:
 			df = pd.read_excel(uploaded_file, sheet_name = "Sheet1", engine = 'openpyxl')
-			df['comment'] = text_process(df['comment'])
-			x_new = count_model.transform(df['comment'])
-			y_pred_new = sentiment_model.predict(x_new[0])
-			df['prediction'] = sentiment_model.predict(y_pred_new)
-			st.write("Kết quả phân tích:")
-			st.write(df[['comment', 'prediction']])
+			list_result = []
+			for i in range(len(uploaded_file)):
+				comment = df['comment'][i]
+				comment = text_process(comment)
+                    		comment = count_model.transform([comment])
+                    		y_predict = sentiment_model.predict(comment)
+                    		list_result.append(y_predict[0])
+                
+                	df['sentiment'] = list_result
+                	df_after_predict = df.copy()
+			
+                	y_class = {0: 'Tiêu cực', 1:'Trung tính', 'Tích cực'}
+                	df_after_predict['sentiment']  = [y_class[i] for i in df_after_predict.sentiment]
+                
+                        st.subheader("Result & Statistics :")
+                	st.write("5 bình luận đầu tiên: ")
+                	st.table(df_after_predict.iloc[:,[0,1]].head())
+			if st.download_button(label="Download data as CSV",
+                                      data=df_after_predict.to_csv().encode('utf-8'),
+                                      file_name='Sentiment.csv',
+                                      mime='text/csv'):
+				st.write('Thanks for downloading!')
 	if type=="Nhập nội dung mới":
 		with st.form(key='my_form'):
 			review = st.text_input(label='Nhập nội dung cần phân tích:')
 			submit_button = st.form_submit_button(label='Phân tích')
+		y_pred_new = []
 		if review!="":
 			lines = pd.DataFrame({'comment':[review]})
 			lines = text_process(lines['comment'])
