@@ -211,30 +211,47 @@ with open('TFIDF.sav', 'rb') as file:
     count_model = pickle.load(file)
 
 # GUI
-menu = ["Giới thiệu", "Dự đoán"]
+menu = ["Giới thiệu", "Model Selection", "Dự đoán"]
 choice = st.sidebar.selectbox('Menu', menu)
 if choice == 'Giới thiệu':
 	st.image("sentiment_analysis.jpg")
 	st.markdown('<div style="text-align: justify;">Thu thập thông tin phản hồi của khách hàng là một cách tuyệt vời giúp cho các doanh nghiệp hiểu được điểm mạnh, điểm yếu trong sản phẩm, dịch vụ của mình; đồng thời nhanh chóng nắm bắt được tâm ký và nhu cầu khách hàng để mang đến cho họ sản phẩm, dịch vụ hoàn hảo nhất.</div>', unsafe_allow_html=True)
 	st.markdown('<div style="text-align: justify;">Ngày nay, với sự phát triển vượt bậc của khoa học và công nghệ, đặc biệt là sự bùng nổ của Internet với các phương tiện truyền thông xã hội, thương mại điện tử,... đã cho phép mọi người không chỉ chia sẻ thông tin trên đó mà còn thể hiện thái độ, quan điểm của mình đối với các sản phẩm, dịch vụ và các vấn đề xã hội khác. Vì vậy mà Internet đã trở lên vô cùng quan trọng và là nguồn cung cấp một lượng thông tin vô cùng lớn và quan trọng.</div>', unsafe_allow_html=True)
 	st.markdown('<div style="text-align: justify;">Thông qua những dữ liệu được thu thập từ Shopee, các nhà cung cấp dịch vụ cũng có thể sử dụng những nguồn thông tin này để đánh giá về sản phẩm của mình, từ đó có thể đưa ra những cải tiến phù hợp hơn với người dùng, mang lại lợi nhuận cao hơn, tránh các rủi ro đáng tiếc xảy ra. Đặc biệt, khi 1 doanh nghiệp có 1 sản phẩm mới ra mắt thị trường thì việc lấy ý kiến phản hồi là vô cùng cần thiết.</div>', unsafe_allow_html=True)
-	st.markdown('<div style="text-align: justify;">Sau các phân tích và xây dựng các model theo từng ngành hàng có trong bộ dữ liệu bao gồm Điện Thoại & Phụ Kiện, Máy Ảnh & Máy Quay Phim, Máy Tính & Laptop, Mẹ & Bé, Nhà Cửa & Đời Sống, Sắc Đẹp, Thiết Bị Điện Tử, Thời Trang Nam, Thời Trang Nữ nhằm mang lại kết quả tối ưu cho việc đánh giá phản hồi khách hàng với Machine learning. Kết quả các ngành hàng đều cho kết quả khả quan với accuracy ~ 0.80 với model MultinomialNB và cùng một bộ parameter alpha = 10.0, class_prior = None, fit_prior = False.</div>', unsafe_allow_html=True)
+elif choice == 'Model Selection':
+	st.header("I. Sklearn")
+	st.markdown('<div style="text-align: justify;">1. NB</div>', unsafe_allow_html=True)
+	st.image("images/NB.png")
+	st.markdown('<div style="text-align: justify;">2. Logistic Regression.</div>', unsafe_allow_html=True)
+	st.image("images/LGR.png")
+	st.markdown('<div style="text-align: justify;">3. Random Forest</div>', unsafe_allow_html=True)
+	st.image("images/RDF.png")
+	st.markdown('<div style="text-align: justify;">4. Model result</div>', unsafe_allow_html=True)
+	st.image("images/Sklearn.png")
+	st.header("II. Pyspark")
+	st.markdown('<div style="text-align: justify;">1. NB</div>', unsafe_allow_html=True)
+	st.image("images/NB2.png")
+	st.markdown('<div style="text-align: justify;">2. Logistic Regression.</div>', unsafe_allow_html=True)
+	st.image("images/LGR2.png")
+	st.markdown('<div style="text-align: justify;">3. Random Forest</div>', unsafe_allow_html=True)
+	st.image("images/RDF2.png")
+	st.markdown('<div style="text-align: justify;">4. Model result</div>', unsafe_allow_html=True)
+	st.image("images/pyspark.png")
+	st.header("III. Model Selection")
+	st.markdown('<div style="text-align: justify;">Chọn model Logistic Regression sklearn để phân tích trạng thái cảm xúc khách hàng với accuracy tương đương 0.8.</div>', unsafe_allow_html=True)
+	st.image("images/LGR.png")
 elif choice == 'Dự đoán':
 	lines = None
 	type = st.selectbox("Chọn phương thức muốn phân tích:", options=("Tải lên tệp *.csv", "Nhập nội dung mới"))
-	if type=="Tải lên tệp *.csv":
+	if type=="Tải lên tệp *.xlsx":
+		st.markdown("[# Sample upload file](https://docs.google.com/spreadsheets/d/11uizEPBLAFq7-7xt3kQsYl7FO4yzkehsnxs9dqerjrM/edit?usp=sharing)")
 		uploaded_file = st.file_uploader("Chọn tệp", type=['csv'])
 		if uploaded_file is not None:
-			lines = pd.read_csv(uploaded_file)
-			lines = text_process(lines['comment'])
-			result = []
-			for i in lines:
-				x_new = count_model.transform(i)
-				y_pred_new = sentiment_model.predict(x_new)
-				result.append(y_pred_new)
-			lines['prediction'] = result
-			st.write("Kết quả phân tích:")
-			st.dataframe(lines[['comment', 'prediction']])
+			df = pd.read_excel(uploaded_file, sheet_name = "Sheet1", engine = 'openpyxl')
+			df['comment'] = text_process(df['comment'])
+			df['prediction'] = sentiment_model.predict(df['comment'])
+			st.write('Kết quả phân tích:")
+			st.write(df[['comment', 'prediction']])
 	if type=="Nhập nội dung mới":
 		with st.form(key='my_form'):
 			review = st.text_input(label='Nhập nội dung cần phân tích:')
