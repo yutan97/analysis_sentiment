@@ -252,16 +252,13 @@ elif choice == 'Dự đoán':
 			for i in range(len(uploaded_file)):
 				comment = df['comment'][i]
 				comment = text_process(comment)
-                    		comment = count_model.transform([comment])
-                    		y_predict = sentiment_model.predict(comment)
-                    		list_result.append(y_predict[0])
-                
+				comment = count_model.transform([comment])
+				y_predict = sentiment_model.predict(comment)
+				list_result.append(y_predict[0])
                 	df['sentiment'] = list_result
                 	df_after_predict = df.copy()
-			
                 	y_class = {0: 'Tiêu cực', 1:'Trung tính', 'Tích cực'}
                 	df_after_predict['sentiment']  = [y_class[i] for i in df_after_predict.sentiment]
-                
                         st.subheader("Result & Statistics :")
                 	st.write("5 bình luận đầu tiên: ")
                 	st.table(df_after_predict.iloc[:,[0,1]].head())
