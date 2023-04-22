@@ -249,7 +249,7 @@ elif choice == 'Dự đoán':
 		if uploaded_file is not None:
 			df = pd.read_excel(uploaded_file, sheet_name = "Sheet1", engine = 'openpyxl')
 			list_result = []
-			for i in range(len(uploaded_file)):
+			for i in range(len(df)):
 				comment = df['comment'][i]
 				comment = text_process(comment)
 				comment = count_model.transform([comment])
