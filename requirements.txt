@@ -10,3 +10,4 @@ demoji
 pyvi
 swifter
 Pillow
+openpyxl
