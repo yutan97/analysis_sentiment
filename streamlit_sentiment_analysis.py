@@ -258,25 +258,25 @@ elif choice == 'Dự đoán':
 		with st.form(key='my_form'):
 			review = st.text_input(label='Nhập nội dung cần phân tích:')
 			submit_button = st.form_submit_button(label='Phân tích')
-			if review!="":
-				lines = pd.DataFrame({'comment':[review]})
-				lines = text_process(lines['comment'])
-				x_new = count_model.transform(lines)
-				y_pred_new = sentiment_model.predict(x_new)
-			if y_pred_new == "negative":
-				st.write("""
-				Khách hàng phản hồi không tốt về sản phẩm này, cần cải thiện.
-				""")
-				neg = Image.open("negative.jpg")
-				neg = neg.resize((400,400))
-				st.image(neg, width = 250)
-			elif y_pred_new == "neutral":
-				st.write("""Khách hàng có cảm nhận bình thường về sản phẩm này.""")
-				neu = Image.open("neutral.png")
-				neu = neu.resize((400,400))
-				st.image(neu, width = 250)
-			elif y_pred_new == "positive":
-				st.write("""Chúc mừng bạn, bạn có một phản hồi tốt về sản phẩm này.""")
-				pos = Image.open("positive.jpg")
-				pos = pos.resize((400,400))
-				st.image(pos, width = 250)
+		if review!="":
+			lines = pd.DataFrame({'comment':[review]})
+			lines = text_process(lines['comment'])
+			x_new = count_model.transform(lines)
+			y_pred_new = sentiment_model.predict(x_new)
+		if y_pred_new == "negative":
+			st.write("""
+			Khách hàng phản hồi không tốt về sản phẩm này, cần cải thiện.
+			""")
+			neg = Image.open("negative.jpg")
+			neg = neg.resize((400,400))
+			st.image(neg, width = 250)
+		elif y_pred_new == "neutral":
+			st.write("""Khách hàng có cảm nhận bình thường về sản phẩm này.""")
+			neu = Image.open("neutral.png")
+			neu = neu.resize((400,400))
+			st.image(neu, width = 250)
+		elif y_pred_new == "positive":
+			st.write("""Chúc mừng bạn, bạn có một phản hồi tốt về sản phẩm này.""")
+			pos = Image.open("positive.jpg")
+			pos = pos.resize((400,400))
+			st.image(pos, width = 250)
