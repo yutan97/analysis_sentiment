@@ -248,10 +248,10 @@ elif choice == 'Dự đoán':
 		uploaded_file = st.file_uploader("Chọn tệp")
 		if uploaded_file is not None:
 			df = pd.read_excel(uploaded_file, sheet_name = "Sheet1", engine = 'openpyxl')
+			df['comment'] = text_process(df['comment'])
 			list_result = []
 			for i in range(len(df)):
 				comment = df['comment'][i]
-				comment = text_process(comment)
 				comment = count_model.transform([comment])
 				y_predict = sentiment_model.predict(comment)
 				list_result.append(y_predict[0])
