@@ -250,7 +250,7 @@ elif choice == 'Dự đoán':
 			df = pd.read_excel(uploaded_file, sheet_name = "Sheet1", engine = 'openpyxl')
 			df['comment'] = text_process(df['comment'])
 			x_new = count_model.transform(df['comment'])
-			y_pred_new = sentiment_model.predict(x_new)
+			y_pred_new = sentiment_model.predict(x_new[0])
 			df['prediction'] = sentiment_model.predict(y_pred_new)
 			st.write("Kết quả phân tích:")
 			st.write(df[['comment', 'prediction']])
