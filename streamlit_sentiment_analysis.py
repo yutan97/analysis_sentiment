@@ -249,7 +249,9 @@ elif choice == 'Dự đoán':
 		if uploaded_file is not None:
 			df = pd.read_excel(uploaded_file, sheet_name = "Sheet1", engine = 'openpyxl')
 			df['comment'] = text_process(df['comment'])
-			df['prediction'] = sentiment_model.predict(df['comment'])
+			x_new = count_model.transform(df['comment'])
+			y_pred_new = sentiment_model.predict(x_new)
+			df['prediction'] = sentiment_model.predict(y_pred_new)
 			st.write("Kết quả phân tích:")
 			st.write(df[['comment', 'prediction']])
 	if type=="Nhập nội dung mới":
