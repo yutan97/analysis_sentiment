@@ -261,7 +261,7 @@ elif choice == 'Dự đoán':
 			df_after_predict['sentiment']  = [y_class[i] for i in df_after_predict.sentiment]
 			st.subheader("Result & Statistics :")
 			st.write("5 bình luận đầu tiên: ")
-			st.table(df_after_predict.iloc[:,[0,1]].head())
+			st.table(df_after_predict.iloc[:,[5,6]].head())
 			if st.download_button(label="Download data as CSV",
                                       data=df_after_predict.to_csv().encode('utf-8'),
                                       file_name='Sentiment.csv',
