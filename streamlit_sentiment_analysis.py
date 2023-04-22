@@ -242,10 +242,10 @@ elif choice == 'Model Selection':
 	st.image("images/LGR.png")
 elif choice == 'Dự đoán':
 	lines = None
-	type = st.selectbox("Chọn phương thức muốn phân tích:", options=("Tải lên tệp *.csv", "Nhập nội dung mới"))
+	type = st.selectbox("Chọn phương thức muốn phân tích:", options=("Tải lên tệp *.xlsx", "Nhập nội dung mới"))
 	if type=="Tải lên tệp *.xlsx":
 		st.markdown("[# Sample upload file](https://docs.google.com/spreadsheets/d/11uizEPBLAFq7-7xt3kQsYl7FO4yzkehsnxs9dqerjrM/edit?usp=sharing)")
-		uploaded_file = st.file_uploader("Chọn tệp", type=['csv'])
+		uploaded_file = st.file_uploader("Chọn tệp")
 		if uploaded_file is not None:
 			df = pd.read_excel(uploaded_file, sheet_name = "Sheet1", engine = 'openpyxl')
 			df['comment'] = text_process(df['comment'])
